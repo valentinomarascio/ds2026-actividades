@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Catakogo de libros</title>
+</head>
+<body>
+    <h1>catalogo</h1>
+    <input type="text" id="filtroAutor" placeholder="buscar por autor:">
+    <button id="filtrar">filtrar</button>
+    <button id="mostrarDisponibles">solo disponibles</button>
+    <button id="mostrarTodos">ver todos</button>
+
+    <h2>agregar libro</h2>
+    <input type="text" id="titulo" placeholder="Titulo">
+    <input type="text" id="autor" placeholder="Autor">
+    <input type="number" id="precio" placeholder="Precio">
+    <label>
+        disponibles
+        <input type="checkbox" id="disponible">
+    </label>
+
+    <button id="agregar">Agregar</button>
+    <div id="errorForm"></div>
+
+    <ul id="listado"></ul>
+    <p id="stats"></p>
+
+    <script src="app.js"></script>
+</body>
+</html>
