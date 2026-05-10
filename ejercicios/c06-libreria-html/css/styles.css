@@ -1,0 +1,20 @@
+
+.navbar {
+    background-color: #0a1628 !important;
+}
+
+.hero {
+    background-color: #0a1628;
+}
+
+.btn-catalogo {
+    background-color: #1a3a6b;
+    border-color: #1a3a6b;
+    color: white;
+}
+
+.btn-catalogo:hover {
+    background-color: #122a52;
+    border-color: #122a52;
+    color: white;
+}
