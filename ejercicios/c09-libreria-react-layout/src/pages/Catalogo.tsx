@@ -10,28 +10,17 @@ const libros: Libro[] = [
   { id: 6, titulo: 'El alquimista', autor: 'Paulo Coelho', imagen: 'https://covers.openlibrary.org/b/id/8259414-M.jpg' },
 ]
 
-function Home() {
+function Catalogo() {
   return (
-    <div>
-      <div className="py-5 text-white text-center" style={{ backgroundColor: '#0a1628' }}>
-        <div className="container">
-          <h1 className="display-4 fw-bold">Bienvenido a Libreria VM</h1>
-          <p className="lead">Descubrí los libros que no sabias que necesitabas</p>
-          <a href="#" className="btn btn-lg" style={{ backgroundColor: '#1a3a6b', color: 'white' }}>
-            Ver catálogo
-          </a>
-        </div>
-      </div>
-      <div className="container my-5">
-        <h2 className="mb-4">Libros destacados</h2>
-        <div className="row row-cols-1 row-cols-md-3 g-4">
-          {libros.map(libro => (
-            <LibroCard key={libro.id} id={libro.id} titulo={libro.titulo} autor={libro.autor} imagen={libro.imagen} />
-            ))}
-        </div>
+    <div className="container my-5">
+      <h2 className="mb-4">Catálogo completo</h2>
+      <div className="row row-cols-1 row-cols-md-3 g-4">
+        {libros.map(libro => (
+          <LibroCard key={libro.id} id={libro.id} titulo={libro.titulo} autor={libro.autor} imagen={libro.imagen} />
+        ))}
       </div>
     </div>
   )
 }
 
-export default Home
+export default Catalogo
