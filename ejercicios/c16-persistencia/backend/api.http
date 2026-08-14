@@ -1,0 +1,79 @@
+### Obtener todos los libros
+GET http://localhost:3000/api/libros
+
+
+### Obtener libro por ID
+GET http://localhost:3000/api/libros/1
+
+
+### Crear libro
+POST http://localhost:3000/api/libros
+Content-Type: application/json
+
+{
+  "titulo": "Rayuela",
+  "autor": "Julio Cortázar",
+  "precio": 15000,
+  "imagen": "https://example.com/rayuela.jpg",
+  "disponible": true
+}
+
+
+### Actualizar libro
+PUT http://localhost:3000/api/libros/4
+Content-Type: application/json
+
+{
+  "titulo": "Rayuela - Edición especial",
+  "autor": "Julio Cortázar",
+  "precio": 18000,
+  "imagen": "https://example.com/rayuela.jpg",
+  "disponible": true
+}
+
+
+### Eliminar libro
+DELETE http://localhost:3000/api/libros/4
+
+
+### Obtener todos los autores
+GET http://localhost:3000/api/autores
+
+
+### Obtener autor por ID
+GET http://localhost:3000/api/autores/1
+
+
+### Crear autor
+POST http://localhost:3000/api/autores
+Content-Type: application/json
+
+{
+  "nombre": "Julio Cortázar",
+  "nacionalidad": "Argentina"
+}
+
+
+### Actualizar autor
+PUT http://localhost:3000/api/autores/4
+Content-Type: application/json
+
+{
+  "nombre": "Julio Florencio Cortázar",
+  "nacionalidad": "Argentina"
+}
+
+
+### Eliminar autor
+DELETE http://localhost:3000/api/autores/4
+
+### Obtener sólo libros disponibles
+GET http://localhost:3000/api/libros?disponible=true
+
+
+### Libro inexistente - debe devolver 404
+GET http://localhost:3000/api/libros/999
+
+
+### Autor inexistente - debe devolver 404
+GET http://localhost:3000/api/autores/999
