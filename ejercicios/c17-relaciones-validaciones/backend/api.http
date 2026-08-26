@@ -1,0 +1,171 @@
+@baseUrl = http://localhost:3000
+
+### =========================
+### LIBROS - CAMINO FELIZ
+### =========================
+
+### Obtener todos los libros
+GET {{baseUrl}}/api/libros
+
+
+### Obtener sólo libros disponibles
+GET {{baseUrl}}/api/libros?disponible=true
+
+
+### Obtener libro por ID
+GET {{baseUrl}}/api/libros/1
+
+
+### Crear libro
+POST {{baseUrl}}/api/libros
+Content-Type: application/json
+
+{
+  "titulo": "Rayuela",
+  "precio": 15000,
+  "imagen": "https://example.com/rayuela.jpg",
+  "disponible": true,
+  "autorId": 1
+}
+
+
+### Actualizar libro creado
+PUT {{baseUrl}}/api/libros/4
+Content-Type: application/json
+
+{
+  "titulo": "Rayuela - Edición especial",
+  "precio": 18000
+}
+
+
+### Eliminar libro creado
+DELETE {{baseUrl}}/api/libros/4
+
+
+### =========================
+### AUTORES - CAMINO FELIZ
+### =========================
+
+### Obtener todos los autores
+GET {{baseUrl}}/api/autores
+
+
+### Obtener autor por ID
+GET {{baseUrl}}/api/autores/1
+
+
+### Crear autor
+POST {{baseUrl}}/api/autores
+Content-Type: application/json
+
+{
+  "nombre": "Julio Cortázar",
+  "nacionalidad": "Argentina"
+}
+
+
+### Actualizar autor creado
+PUT {{baseUrl}}/api/autores/4
+Content-Type: application/json
+
+{
+  "nombre": "Julio Florencio Cortázar",
+  "nacionalidad": "Argentina"
+}
+
+
+### Eliminar autor creado
+DELETE {{baseUrl}}/api/autores/4
+
+
+### =========================
+### CATEGORÍAS
+### =========================
+
+### Obtener todas las categorías
+GET {{baseUrl}}/api/categorias
+
+
+### Obtener categoría por ID
+GET {{baseUrl}}/api/categorias/1
+
+
+### Crear categoría
+POST {{baseUrl}}/api/categorias
+Content-Type: application/json
+
+{
+  "nombre": "Ensayo"
+}
+
+
+### Actualizar categoría creada
+PUT {{baseUrl}}/api/categorias/4
+Content-Type: application/json
+
+{
+  "nombre": "Ensayo contemporáneo"
+}
+
+
+### Eliminar categoría creada
+DELETE {{baseUrl}}/api/categorias/4
+
+
+### =========================
+### ERRORES 400
+### =========================
+
+### 400 - ID inválido
+GET {{baseUrl}}/api/libros/abc
+
+
+### 400 - Libro sin título y con datos inválidos
+POST {{baseUrl}}/api/libros
+Content-Type: application/json
+
+{
+  "precio": -100,
+  "imagen": "",
+  "autorId": 0
+}
+
+
+### =========================
+### ERRORES 404
+### =========================
+
+### 404 - Libro inexistente
+GET {{baseUrl}}/api/libros/9999
+
+
+### 404 - Autor inexistente
+GET {{baseUrl}}/api/autores/9999
+
+
+### 404 - Actualizar libro inexistente
+PUT {{baseUrl}}/api/libros/9999
+Content-Type: application/json
+
+{
+  "titulo": "Libro inexistente"
+}
+
+
+### =========================
+### ERRORES 409
+### =========================
+
+### 409 - Autor duplicado
+POST {{baseUrl}}/api/autores
+Content-Type: application/json
+
+{
+  "nombre": "Gabriel García Márquez",
+  "nacionalidad": "Colombia"
+}
+
+
+### 409 - Eliminar autor con libros asociados
+DELETE {{baseUrl}}/api/autores/1
