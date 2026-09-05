@@ -1,0 +1,247 @@
+@baseUrl = http://localhost:3000
+@clienteToken = PEGAR_TOKEN_CLIENTE
+@adminToken = PEGAR_TOKEN_ADMIN
+
+### =========================
+### AUTH
+### =========================
+
+### Registrar usuario - 201
+POST {{baseUrl}}/api/auth/registro
+Content-Type: application/json
+
+{
+  "nombre": "Ana",
+  "email": "ana@libreria.test",
+  "password": "Libreria2026"
+}
+
+### Registro duplicado - 409
+POST {{baseUrl}}/api/auth/registro
+Content-Type: application/json
+
+{
+  "nombre": "Ana",
+  "email": "ana@libreria.test",
+  "password": "Libreria2026"
+}
+
+### Login CLIENTE - 200
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "cliente@libreria.test",
+  "password": "Cliente1234"
+}
+
+### Login ADMIN - 200
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@libreria.test",
+  "password": "Admin1234"
+}
+
+### Login contraseña incorrecta - 401
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "cliente@libreria.test",
+  "password": "Mala1234"
+}
+
+### Login usuario inexistente - 401
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "nadie@libreria.test",
+  "password": "Cliente1234"
+}
+
+### /yo sin token - 401
+GET {{baseUrl}}/api/auth/yo
+
+### /yo token inválido - 401
+GET {{baseUrl}}/api/auth/yo
+Authorization: Bearer token-invalido
+
+### /yo con token CLIENTE - 200
+GET {{baseUrl}}/api/auth/yo
+Authorization: Bearer {{clienteToken}}
+
+### =========================
+### LIBROS - CAMINO FELIZ
+### =========================
+
+### Obtener todos los libros
+GET {{baseUrl}}/api/libros
+
+### Obtener sólo libros disponibles
+GET {{baseUrl}}/api/libros?disponible=true
+
+### Obtener libro por ID
+GET {{baseUrl}}/api/libros/1
+
+### CLIENTE intenta crear libro - 403
+POST {{baseUrl}}/api/libros
+Authorization: Bearer {{clienteToken}}
+Content-Type: application/json
+
+{
+  "titulo": "Prueba Cliente",
+  "precio": 1000,
+  "imagen": "https://example.com/prueba.jpg",
+  "autorId": 1,
+  "categorias": [1]
+}
+
+### ADMIN crea libro - 201
+POST {{baseUrl}}/api/libros
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "titulo": "Prueba Admin",
+  "precio": 1000,
+  "imagen": "https://example.com/admin.jpg",
+  "autorId": 1,
+  "categorias": [1]
+}
+
+### Actualizar libro
+PUT {{baseUrl}}/api/libros/4
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "titulo": "Prueba Admin - Edición especial",
+  "precio": 1800,
+  "categorias": [1, 2]
+}
+
+### Eliminar libro
+DELETE {{baseUrl}}/api/libros/4
+Authorization: Bearer {{adminToken}}
+
+### =========================
+### AUTORES - CAMINO FELIZ
+### =========================
+
+### Obtener todos los autores
+GET {{baseUrl}}/api/autores
+
+### Obtener autor por ID
+GET {{baseUrl}}/api/autores/1
+
+### Crear autor
+POST {{baseUrl}}/api/autores
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "nombre": "Julio Cortázar",
+  "nacionalidad": "Argentina"
+}
+
+### Actualizar autor
+PUT {{baseUrl}}/api/autores/4
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "nombre": "Julio Florencio Cortázar",
+  "nacionalidad": "Argentina"
+}
+
+### Eliminar autor
+DELETE {{baseUrl}}/api/autores/4
+Authorization: Bearer {{adminToken}}
+
+### =========================
+### CATEGORÍAS
+### =========================
+
+### Obtener todas las categorías
+GET {{baseUrl}}/api/categorias
+
+### Obtener categoría por ID
+GET {{baseUrl}}/api/categorias/1
+
+### Crear categoría
+POST {{baseUrl}}/api/categorias
+Content-Type: application/json
+
+{
+  "nombre": "Ensayo"
+}
+
+### Actualizar categoría
+PUT {{baseUrl}}/api/categorias/4
+Content-Type: application/json
+
+{
+  "nombre": "Ensayo contemporáneo"
+}
+
+### Eliminar categoría
+DELETE {{baseUrl}}/api/categorias/4
+
+### =========================
+### ERRORES 400
+### =========================
+
+### 400 - ID inválido
+GET {{baseUrl}}/api/libros/abc
+
+### 400 - Libro con datos inválidos
+POST {{baseUrl}}/api/libros
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "titulo": "",
+  "precio": -100,
+  "imagen": "",
+  "autorId": 0
+}
+
+### =========================
+### ERRORES 404
+### =========================
+
+### 404 - Libro inexistente
+GET {{baseUrl}}/api/libros/9999
+
+### 404 - Autor inexistente
+GET {{baseUrl}}/api/autores/9999
+
+### 404 - Actualizar libro inexistente
+PUT {{baseUrl}}/api/libros/9999
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "titulo": "Libro inexistente"
+}
+
+### =========================
+### ERRORES 409
+### =========================
+
+### 409 - Autor duplicado
+POST {{baseUrl}}/api/autores
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+  "nombre": "Gabriel García Márquez",
+  "nacionalidad": "Colombia"
+}
+
+### 409 - Eliminar autor con libros asociados
+DELETE {{baseUrl}}/api/autores/1
+Authorization: Bearer {{adminToken}}
